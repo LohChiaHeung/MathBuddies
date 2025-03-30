@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- 🔙 Back Button -->
+    <Button
+        style="@style/ChewyTextStyle"
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textSize="22sp"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 📜 ScrollView for content -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center">
+
+            <!-- Title -->
+            <TextView
+                style="@style/ChewyTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Compose Numbers"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Tutorial Button -->
+            <Button
+                style="@style/ChewyTextStyle"
+                android:id="@+id/btnTutorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tutorial 📘"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Level Buttons -->
+            <Button
+                style="@style/ChewyTextStyle"
+                android:id="@+id/btnLevel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Level 1 – Basic 🍎"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                style="@style/ChewyTextStyle"
+                android:id="@+id/btnLevel2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Level 2 – Easy 🍊"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                style="@style/ChewyTextStyle"
+                android:id="@+id/btnLevel3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Level 3 – Normal 🍇"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                style="@style/ChewyTextStyle"
+                android:id="@+id/btnLevel4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Level 4 – Hard 🍍"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                style="@style/ChewyTextStyle"
+                android:id="@+id/btnLevel5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Level 5 – Very Hard 🍉" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
