@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Numbers"
+        android:textSize="24sp"
+        android:layout_marginBottom="24dp"
+        android:textStyle="bold" />
+
+    <!-- Tutorial Button -->
+    <Button
+        android:id="@+id/btnTutorial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tutorial  📔"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Level Buttons -->
+    <Button
+        android:id="@+id/btnLevel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 1 – Basic 🍎"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnLevel2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 2 – Easy 🚌"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnLevel3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 3 – Normal 🍕"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnLevel4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 4 – Hard 🍩"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnLevel5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 5 – Very Hard 🍰" />
+</LinearLayout>

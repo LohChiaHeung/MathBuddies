@@ -12,14 +12,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button compareButton = findViewById(R.id.compareNumbers);
-
-
-        compareButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CompareNumbersActivity.class)));
+        Button orderButton = findViewById(R.id.orderNumbers);
 
         compareButton.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, CompareLevelsActivity.class)));
 
+        orderButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, OrderLevelsActivity.class); // or OrderNumbersActivity directly
+            startActivity(intent);
+        });
 
     }
 

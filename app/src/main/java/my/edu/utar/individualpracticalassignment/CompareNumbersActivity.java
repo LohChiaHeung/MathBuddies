@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 
-public class CompareNumbersActivity extends AppCompatActivity {
+public class CompareNumbersActivity extends BaseActivity {
 
     TextView txtProblem, txtFeedback, txtLevel;
     Button btnOption1, btnOption2, btnOption3;
@@ -44,10 +44,11 @@ public class CompareNumbersActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         shuffleOptions = getIntent().getBooleanExtra("shuffle", false);
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare_numbers);
+        setupBackButton(R.id.btnBack);
 
         txtLevel = findViewById(R.id.txtLevel);
         txtProblem = findViewById(R.id.txtProblem);
@@ -66,7 +67,7 @@ public class CompareNumbersActivity extends AppCompatActivity {
         max = getIntent().getIntExtra("max", 10);
 
         txtScore = findViewById(R.id.txtScore);
-        btnBack = findViewById(R.id.btnBack);
+//        btnBack = findViewById(R.id.btnBack);
 
         bgMusic = MediaPlayer.create(this, R.raw.bg_music);
         bgMusic.setVolume(0.3f, 0.3f);
@@ -77,12 +78,12 @@ public class CompareNumbersActivity extends AppCompatActivity {
         btnMute.setText("🔇");
         btnMute.setBackgroundColor(Color.parseColor("#EF9A9A"));
 
-        btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CompareLevelsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        });
+//        btnBack.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, CompareLevelsActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//            startActivity(intent);
+//            finish();
+//        });
 
         btnMute.setOnClickListener(v -> {
             if (isMuted) {
@@ -209,7 +210,7 @@ public class CompareNumbersActivity extends AppCompatActivity {
         //Show different message for different results
         String resultMessage;
         if (correctAnswers >= 3) {
-            resultMessage = "Congratulations! 🎉\nYou got " + correctAnswers + " out of " + totalQuestions + " correct!" + "\n Keep it up!";
+            resultMessage = "Congratulations! 🎉\nYou got " + correctAnswers + " out of " + totalQuestions + " correct!" + "\n\nKeep it up!";
         } else {
             resultMessage = "Good try! 😊\nYou got " + correctAnswers + " out of " + totalQuestions + " correct.\nKeep practicing!";
         }
