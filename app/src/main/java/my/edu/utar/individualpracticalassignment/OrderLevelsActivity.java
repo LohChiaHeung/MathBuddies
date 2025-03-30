@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-public class OrderLevelsActivity extends AppCompatActivity {
+public class OrderLevelsActivity extends BaseActivity {
     Button btnTutorial, btnLevel1, btnLevel2, btnLevel3, btnLevel4, btnLevel5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_levels);
+        setupBackButton(R.id.btnBack);
 
         btnTutorial = findViewById(R.id.btnTutorial);
         btnLevel1 = findViewById(R.id.btnLevel1);
@@ -23,7 +23,7 @@ public class OrderLevelsActivity extends AppCompatActivity {
 
         // Tutorial: optional WebView or animation
         btnTutorial.setOnClickListener(v -> {
-            Intent intent = new Intent(this, TutorialActivity.class);
+            Intent intent = new Intent(this, TutorialActivityOrderNumber.class);
             startActivity(intent);
         });
 

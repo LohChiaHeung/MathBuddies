@@ -205,7 +205,7 @@ public class CompareNumbersActivity extends BaseActivity {
             bgMusic.pause();
         }
 
-        soundPool.play(soundVictory, 1, 1, 1, 0, 1);
+        soundPool.play(soundVictory, 0.5f, 0.5f, 1, 0, 1);
 
         //Show different message for different results
         String resultMessage;

@@ -3,6 +3,7 @@ package my.edu.utar.individualpracticalassignment;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,6 +54,8 @@ public class OrderNumbersActivity extends BaseActivity {
 
     TextView txtFeedback;
     TextView txtLevel, txtOrderType, txtQuestionCount;
+
+
     View.OnDragListener dragListener = (v, event) -> {
         switch (event.getAction()) {
             case DragEvent.ACTION_DROP:
@@ -104,6 +108,8 @@ public class OrderNumbersActivity extends BaseActivity {
 
         dropTargets = Arrays.asList(drop1, drop2, drop3, drop4);
 
+        Button btnReset = findViewById(R.id.btnReset);
+        btnReset.setOnClickListener(v -> resetCurrentDragDrop());
 
         btnCheck.setOnClickListener(v -> checkAnswer());
         setupBackButton(R.id.btnBack);
@@ -167,7 +173,6 @@ public class OrderNumbersActivity extends BaseActivity {
 
 
     }
-
     private void generateRandomNumbers(int level) {
         originalNumbers.clear();
         dragContainer.removeAllViews();
@@ -177,12 +182,12 @@ public class OrderNumbersActivity extends BaseActivity {
         txtFeedback.setText("");
 
         txtQuestionCount.setText("Question " + (questionCount + 1) + " of " + totalQuestions);
-
+        Typeface chewy = ResourcesCompat.getFont(this, R.font.chewy_font);
 
         // Randomly choose Ascending or Descending
         Random rand = new Random();
         isAscending = rand.nextBoolean(); // true = ascending, false = descending
-        txtOrderType.setText(isAscending ? "Ascending Order" : "Descending Order");
+        txtOrderType.setText(isAscending ? "Ascending Order \uD83D\uDCC8" : "Descending Order \uD83D\uDCC9");
 
         // Determine how many boxes to use
         int boxCount = 4;
@@ -223,6 +228,7 @@ public class OrderNumbersActivity extends BaseActivity {
             drag.setGravity(Gravity.CENTER);
             drag.setBackgroundColor(Color.parseColor("#4CAF50"));
             drag.setTextColor(Color.WHITE);
+            drag.setTypeface(chewy);
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, 130, 1f);
             params.setMargins(8, 8, 8, 8);
@@ -241,6 +247,7 @@ public class OrderNumbersActivity extends BaseActivity {
             TextView drop = new TextView(this);
             drop.setText("");
             drop.setTextSize(18f);
+            drop.setTypeface(chewy);
             drop.setGravity(Gravity.CENTER);
             drop.setBackgroundColor(Color.parseColor("#DDDDDD"));
             drop.setTextColor(Color.BLACK);
@@ -251,6 +258,23 @@ public class OrderNumbersActivity extends BaseActivity {
             dropViews.add(drop);
         }
     }
+
+    private void resetCurrentDragDrop() {
+        // Clear drop boxes and reset background
+        for (TextView drop : dropViews) {
+            drop.setText("");
+            drop.setBackgroundColor(Color.parseColor("#DDDDDD")); // Default color
+        }
+
+        // Reset draggable items (re-enable and restore background if needed)
+        for (TextView drag : dragViews) {
+            drag.setBackgroundColor(Color.parseColor("#4CAF50")); // Original green
+            drag.setTag("unused"); // Mark as usable again
+        }
+
+        txtFeedback.setText(""); // Clear feedback
+    }
+
 
     private void checkAnswer() {
         List<Integer> dropped = new ArrayList<>();
@@ -301,7 +325,7 @@ public class OrderNumbersActivity extends BaseActivity {
         if (bgMusic != null && bgMusic.isPlaying()) {
             bgMusic.pause();
         }
-        soundPool.play(soundVictory, 1, 1, 1, 0, 1);
+        soundPool.play(soundVictory, 0.5f, 0.5f, 1, 0, 1);
 
         String resultMessage;
         if (correctAnswers >= 3) {

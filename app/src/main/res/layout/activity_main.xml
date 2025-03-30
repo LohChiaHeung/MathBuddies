@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    style="@style/ChewyTextStyle">
 
     <TextView
         android:id="@+id/textView"
@@ -14,10 +15,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ChewyTextStyle"/>
 
     <Button
         android:id="@+id/compareNumbers"
+        style="@style/ChewyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Compare Numbers"
@@ -30,6 +33,7 @@
 
     <Button
         android:id="@+id/orderNumbers"
+        style="@style/ChewyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Order Numbers"
@@ -38,5 +42,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.66" />
+
+    <Button
+        android:id="@+id/composeNumbers"
+        style="@style/ChewyTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Compose Numbers"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.743" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

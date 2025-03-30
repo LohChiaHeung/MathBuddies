@@ -1,34 +1,63 @@
 package my.edu.utar.individualpracticalassignment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
+public class TutorialActivity extends BaseActivity {
 
-public class TutorialActivity extends AppCompatActivity {
+    private WebView webView;
+    private FrameLayout fullScreenContainer;
+    private View customView;
+    private WebChromeClient.CustomViewCallback customViewCallback;
+
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        WebView webView = findViewById(R.id.webView);
-        webView.setWebViewClient(new WebViewClient()); // Keep it in-app
+        webView = findViewById(R.id.webView);
+        fullScreenContainer = findViewById(R.id.fullscreen_container); // You need to add this in XML
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
 
-        // Replace this with your YouTube video link
-        String videoHtml = "<iframe width=\"100%\" height=\"100%\" " +
-                "src=\"https://www.youtube.com/embed/M6Efzu2slaI\" " +
-                "frameborder=\"0\" allowfullscreen></iframe>";
+        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new FullscreenChromeClient());
 
-        webView.loadData(videoHtml, "text/html", "utf-8");
+        webView.loadUrl("https://www.youtube.com/embed/M6Efzu2slaI");
 
         Button btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> finish()); // Go back to the previous screen
+        btnBack.setOnClickListener(v -> finish());
+    }
+
+    private class FullscreenChromeClient extends WebChromeClient {
+        @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            customView = view;
+            customViewCallback = callback;
+            fullScreenContainer.setVisibility(View.VISIBLE);
+            fullScreenContainer.addView(view);
+            webView.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onHideCustomView() {
+            fullScreenContainer.setVisibility(View.GONE);
+            fullScreenContainer.removeView(customView);
+            customView = null;
+            webView.setVisibility(View.VISIBLE);
+            customViewCallback.onCustomViewHidden();
+        }
     }
 
 }

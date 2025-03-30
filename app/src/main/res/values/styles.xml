@@ -23,4 +23,8 @@
         <item name="android:layout_margin">4dp</item>
     </style>
 
+    <style name="ChewyTextStyle">
+        <item name="android:fontFamily">@font/chewy_font</item>
+    </style>
+
 </resources>

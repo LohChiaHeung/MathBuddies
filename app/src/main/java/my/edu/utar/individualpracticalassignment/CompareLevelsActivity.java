@@ -3,10 +3,8 @@ package my.edu.utar.individualpracticalassignment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import androidx.appcompat.app.AppCompatActivity;
 
-
-public class CompareLevelsActivity extends AppCompatActivity {
+public class CompareLevelsActivity extends BaseActivity {
 
     Button tutorialBtn, level1Btn, level2Btn, level3Btn, level4Btn, level5Btn;
 
@@ -14,6 +12,7 @@ public class CompareLevelsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare_levels);
+        setupBackButton(R.id.btnBack);
 
         tutorialBtn = findViewById(R.id.btnTutorial);
         level1Btn = findViewById(R.id.btnLevel1);
