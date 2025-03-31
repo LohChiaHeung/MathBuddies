@@ -70,12 +70,11 @@
             style="@style/ChewyTextStyle"
             android:id="@+id/centerContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center">
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="10dp"
+            android:paddingTop="100dp">
 
             <!-- Level Info -->
             <TextView

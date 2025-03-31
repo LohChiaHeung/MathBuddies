@@ -40,8 +40,8 @@ public class CompareLevelsActivity extends BaseActivity {
         level3Btn.setOnClickListener(v -> startQuizWithRange(21, 30,"Level 3 – Normal", false));
         //Level 4 [Hard]: 31 - 50
         level4Btn.setOnClickListener(v -> startQuizWithRange(31, 50,"Level 4 – Hard", true));
-        //Level 5 [Very Hard]: 51 - 100
-        level5Btn.setOnClickListener(v -> startQuizWithRange(51, 100,"Level 5 – Very Hard", true));
+        //Level 5 [Very Hard]: 51 - 99
+        level5Btn.setOnClickListener(v -> startQuizWithRange(51, 99,"Level 5 – Very Hard", true));
     }
 
     private void startQuizWithRange(int min, int max, String levelName, boolean shuffle) {
