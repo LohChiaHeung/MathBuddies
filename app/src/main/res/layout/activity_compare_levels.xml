@@ -52,6 +52,7 @@
             <!-- Tutorial -->
             <Button
                 style="@style/ChewyTextStyle"
+                android:textColor="@color/textColor"
                 android:id="@+id/btnTutorial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

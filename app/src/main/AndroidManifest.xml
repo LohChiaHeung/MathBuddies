@@ -25,6 +25,9 @@
             android:name=".TutorialActivityOrderNumber"
             android:configChanges="orientation|screenSize"/>
         <activity
+            android:name=".TutorialActivityComposeNumber"
+            android:configChanges="orientation|screenSize"/>
+        <activity
             android:name=".CompareNumbersActivity"
             android:exported="false" />
         <activity

@@ -16,8 +16,8 @@ public class ComposeLevelsActivity extends BaseActivity {
         // Tutorial Button
         Button btnTutorial = findViewById(R.id.btnTutorial);
         btnTutorial.setOnClickListener(v -> {
-            //Intent intent = new Intent(this, ComposeTutorialActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(this, TutorialActivityComposeNumber.class);
+            startActivity(intent);
         });
 
         // Level Buttons

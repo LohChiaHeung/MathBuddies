@@ -1,59 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    style="@style/ChewyTextStyle">
+    android:fillViewport="true"
+    android:background="#b1faeb">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/ChewyTextStyle"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/compareNumbers"
-        style="@style/ChewyTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Compare Numbers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="24dp">
 
-    <Button
-        android:id="@+id/orderNumbers"
-        style="@style/ChewyTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Order Numbers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66" />
+            <!-- Welcome Text -->
+            <TextView
+                style="@style/ChewyTextStyle"
+                android:id="@+id/txtWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to MathBuddies!"
+                android:textSize="32sp"
+                android:textAlignment="center"
+                android:textColor="#1B2B48"
+                android:shadowColor="#90FFFFFF"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:layout_marginBottom="24dp"/>
 
-    <Button
-        android:id="@+id/composeNumbers"
-        style="@style/ChewyTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Compose Numbers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
+            <!-- App Icon -->
+            <ImageView
+                android:id="@+id/appIcon"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="45dp"
+                android:src="@drawable/mathbuddies_latest"
+                android:contentDescription="MathBuddies Icon" />
 
+            <!-- Compare Button -->
+            <Button
+                android:id="@+id/compareNumbers"
+                style="@style/ChewyTextStyle"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="🔢 Compare Numbers"
+                android:backgroundTint="#fdc235"
+                android:textColor="#000000"
+                android:elevation="8dp"
+                android:layout_marginBottom="16dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:textSize="18sp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Order Button -->
+            <Button
+                android:id="@+id/orderNumbers"
+                style="@style/ChewyTextStyle"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="📊 Arrange Numbers"
+                android:backgroundTint="#fdc235"
+                android:textColor="#000000"
+                android:elevation="8dp"
+                android:layout_marginBottom="16dp"
+                android:paddingLeft="30sp"
+                android:paddingRight="32dp"
+                android:textSize="18sp"/>
+
+            <!-- Compose Button -->
+            <Button
+                android:id="@+id/composeNumbers"
+                style="@style/ChewyTextStyle"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="🧮 Compose Numbers"
+                android:backgroundTint="#fdc235"
+                android:textColor="#000000"
+                android:elevation="8dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>
+

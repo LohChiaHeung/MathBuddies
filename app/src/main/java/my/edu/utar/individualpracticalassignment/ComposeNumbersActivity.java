@@ -22,6 +22,7 @@ import java.util.Random;
 
 
 
+
 public class ComposeNumbersActivity extends BaseActivity {
 
     TextView txtTargetNumber, txtFeedback, txtLevel;
@@ -35,8 +36,6 @@ public class ComposeNumbersActivity extends BaseActivity {
     int currentLevel = 1;
     int min = 1;
     int max = 10;
-    int targetMin = 2;
-    int targetMax = 10;
     int targetNumber;
     int comboCount;
 
@@ -111,26 +110,27 @@ public class ComposeNumbersActivity extends BaseActivity {
     private void setLevelRange(int level) {
         switch (level) {
             case 1:
-                min = 1; max = 10; targetMin = 2; targetMax = 10; comboCount = 2;
-                txtLevel.setText("Level 1 – Basic");
-                break;
             case 2:
-                min = 1; max = 10; targetMin = 2; targetMax = 10; comboCount = 3;
-                txtLevel.setText("Level 2 – Easy");
-                break;
             case 3:
-                min = 1; max = 20; targetMin = 11; targetMax = 20; comboCount = 4;
-                txtLevel.setText("Level 3 – Normal");
+                min = 1; max = 10; comboCount = 2;
                 break;
             case 4:
-                min = 1; max = 20; targetMin = 11; targetMax = 20; comboCount = 5;
-                txtLevel.setText("Level 4 – Hard");
+                min = 1; max = 20; comboCount = 3;
                 break;
             case 5:
-                min = 1; max = 30; targetMin = 21; targetMax = 30; comboCount = 6;
-                txtLevel.setText("Level 5 – Very Hard");
+                min = 1; max = 30; comboCount = 4;
                 break;
         }
+
+        String levelTitle = "Level " + level;
+        switch (level) {
+            case 1: levelTitle += " – Basic"; break;
+            case 2: levelTitle += " – Easy"; break;
+            case 3: levelTitle += " – Normal"; break;
+            case 4: levelTitle += " – Hard"; break;
+            case 5: levelTitle += " – Very Hard"; break;
+        }
+        txtLevel.setText(levelTitle);
     }
 
     private void generateQuestion() {
@@ -141,7 +141,30 @@ public class ComposeNumbersActivity extends BaseActivity {
         numRow2.removeAllViews();
         numberButtons.clear();
 
-        targetNumber = rand.nextInt(targetMax - targetMin + 1) + targetMin;
+        List<Integer> combo;
+        int tempSum;
+        boolean valid = false;
+
+        do {
+            combo = new ArrayList<>();
+            tempSum = 0;
+            for (int i = 0; i < comboCount; i++) {
+                int num = rand.nextInt(max - min + 1) + min;
+                combo.add(num);
+                tempSum += num;
+            }
+
+            switch (currentLevel) {
+                case 1: valid = (tempSum >= 1 && tempSum <= 5); break;
+                case 2: valid = (tempSum >= 6 && tempSum <= 10); break;
+                case 3: valid = (tempSum >= 11 && tempSum <= 15); break;
+                case 4: valid = (tempSum >= 16 && tempSum <= 20); break;
+                case 5: valid = (tempSum >= 21 && tempSum <= 30); break;
+            }
+
+        } while (!valid);
+
+        targetNumber = tempSum;
         txtTargetNumber.setText("Combine the Number: " + targetNumber);
 
         for (int i = 0; i < comboCount; i++) {
@@ -161,12 +184,16 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
 
         numberPool.clear();
-        for (int i = min; i <= max; i++) {
-            numberPool.add(i);
+        numberPool.addAll(combo);
+        while (numberPool.size() < 8) {
+            int randNum = rand.nextInt(max - min + 1) + min;
+            if (!numberPool.contains(randNum)) {
+                numberPool.add(randNum);
+            }
         }
         Collections.shuffle(numberPool);
 
-        for (int i = 0; i < Math.min(numberPool.size(), 8); i++) {
+        for (int i = 0; i < numberPool.size(); i++) {
             Button btn = new Button(this);
             int value = numberPool.get(i);
             btn.setText(String.valueOf(value));
@@ -193,6 +220,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
     }
 
+
     private void resetSelections() {
         selectedValues.clear();
         for (TextView blank : blankSlots) {
@@ -200,7 +228,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
         for (Button btn : numberButtons) {
             btn.setEnabled(true);
-            btn.setBackgroundColor(Color.parseColor("#4CAF50"));
+            btn.setBackgroundColor(Color.parseColor("#6200EE"));
         }
         txtFeedback.setText("");
     }
