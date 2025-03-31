@@ -1,6 +1,8 @@
 package my.edu.utar.individualpracticalassignment;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -12,6 +14,11 @@ public class OrderLevelsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_levels);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
+        }
+
         setupBackButton(R.id.btnBack);
 
         btnTutorial = findViewById(R.id.btnTutorial);

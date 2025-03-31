@@ -47,6 +47,10 @@ public class CompareNumbersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         shuffleOptions = getIntent().getBooleanExtra("shuffle", false);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
+        }
+
         setContentView(R.layout.activity_compare_numbers);
         setupBackButton(R.id.btnBack);
 
@@ -75,29 +79,21 @@ public class CompareNumbersActivity extends BaseActivity {
         bgMusic.start();
 
         btnMute = findViewById(R.id.btnMute);
-        btnMute.setText("🔇");
-        btnMute.setBackgroundColor(Color.parseColor("#EF9A9A"));
-
-//        btnBack.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, CompareLevelsActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//            startActivity(intent);
-//            finish();
-//        });
 
         btnMute.setOnClickListener(v -> {
             if (isMuted) {
                 // Music was muted → now resume
                 bgMusic.start();
-                btnMute.setText("🔇");
-                btnMute.setBackgroundColor(Color.parseColor("#EF9A9A")); // red
+                btnMute.setBackgroundColor(Color.parseColor("#734012"));
+                btnMute.setText("\uD83D\uDD0A");
                 isMuted = false;
             } else {
                 // Music is playing → now mute it
                 bgMusic.pause();
-                btnMute.setText("🔇");
-                btnMute.setBackgroundColor(Color.parseColor("#A5D6A7")); // green
+                btnMute.setBackgroundColor(Color.parseColor("#7A7A79"));
+                btnMute.setText("\uD83D\uDD07");
                 isMuted = true;
+
             }
         });
 
@@ -217,12 +213,13 @@ public class CompareNumbersActivity extends BaseActivity {
 
         new Handler().postDelayed(() -> {
         new AlertDialog.Builder(this)
-                .setTitle("Quiz Completed!")
+                .setTitle("Game Completed!")
                 .setMessage(resultMessage)
                 .setCancelable(false)
                 .setPositiveButton("Play Again", (dialog, which) -> {
                     questionCount = 0;
                     correctAnswers = 0;
+                    txtScore.setText("Score: " + correctAnswers);
                     txtFeedback.setText("");
 
                     if (bgMusic != null && !isMuted) {

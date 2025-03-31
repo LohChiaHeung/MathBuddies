@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#b1faeb">
 
     <!-- 🔙 Back Button (top-left) -->
     <Button
@@ -44,16 +44,24 @@
                 style="@style/ChewyTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order Numbers"
-                android:textSize="24sp"
+                android:text="Arrange The Numbers 📊"
+                android:textSize="32sp"
                 android:layout_marginBottom="24dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#1B2B48"
+                android:shadowColor="#90FFFFFF"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"/>
 
             <!-- Tutorial -->
             <Button
                 style="@style/ChewyTextStyle"
                 android:id="@+id/btnTutorial"
-                android:layout_width="match_parent"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:backgroundTint="#fdc235"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="Tutorial  📔"
                 android:layout_marginBottom="16dp" />
@@ -62,39 +70,54 @@
             <Button
                 style="@style/ChewyTextStyle"
                 android:id="@+id/btnLevel1"
-                android:layout_width="match_parent"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:backgroundTint="#fdc235"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="Level 1 – Basic 🍎"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="16dp" />
 
             <Button
                 style="@style/ChewyTextStyle"
                 android:id="@+id/btnLevel2"
-                android:layout_width="match_parent"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:backgroundTint="#fdc235"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="Level 2 – Easy 🚌"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="16dp" />
 
             <Button
                 style="@style/ChewyTextStyle"
                 android:id="@+id/btnLevel3"
-                android:layout_width="match_parent"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:backgroundTint="#fdc235"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="Level 3 – Normal 🍕"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="16dp" />
 
             <Button
                 style="@style/ChewyTextStyle"
                 android:id="@+id/btnLevel4"
-                android:layout_width="match_parent"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:backgroundTint="#fdc235"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="Level 4 – Hard 🍩"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="16dp" />
 
             <Button
                 style="@style/ChewyTextStyle"
                 android:id="@+id/btnLevel5"
-                android:layout_width="match_parent"
+                android:textColor="@color/textColor"
+                android:textSize="18sp"
+                android:backgroundTint="#fdc235"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="Level 5 – Very Hard 🍰" />
         </LinearLayout>

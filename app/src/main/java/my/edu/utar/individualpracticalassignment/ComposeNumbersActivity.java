@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class ComposeNumbersActivity extends BaseActivity {
 
-    TextView txtTargetNumber, txtFeedback, txtLevel;
+    TextView txtTargetNumber, txtFeedback, txtLevel,txtQuestionCount;
     TextView txtScore;
     Button btnMute, btnCheck, btnReset;
     LinearLayout blankContainer, numRow1, numRow2;
@@ -56,6 +56,10 @@ public class ComposeNumbersActivity extends BaseActivity {
         setContentView(R.layout.activity_compose_numbers);
         setupBackButton(R.id.btnBack);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
+        }
+
         txtLevel = findViewById(R.id.txtLevel);
         txtTargetNumber = findViewById(R.id.txtTargetNumber);
         txtFeedback = findViewById(R.id.txtFeedback);
@@ -66,6 +70,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         blankContainer = findViewById(R.id.blankContainer);
         numRow1 = findViewById(R.id.numRow1);
         numRow2 = findViewById(R.id.numRow2);
+        txtQuestionCount = findViewById(R.id.txtQuestionCount);
 
         currentLevel = getIntent().getIntExtra("level", 1);
         setLevelRange(currentLevel);
@@ -78,12 +83,12 @@ public class ComposeNumbersActivity extends BaseActivity {
         btnMute.setOnClickListener(v -> {
             if (isMuted) {
                 bgMusic.start();
-                btnMute.setText("🔇");
-                btnMute.setBackgroundColor(Color.parseColor("#EF9A9A"));
+                btnMute.setBackgroundColor(Color.parseColor("#734012"));
+                btnMute.setText("\uD83D\uDD0A");
             } else {
                 bgMusic.pause();
-                btnMute.setText("🔇");
-                btnMute.setBackgroundColor(Color.parseColor("#A5D6A7"));
+                btnMute.setBackgroundColor(Color.parseColor("#7A7A79"));
+                btnMute.setText("\uD83D\uDD07");
             }
             isMuted = !isMuted;
         });
@@ -140,6 +145,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         numRow1.removeAllViews();
         numRow2.removeAllViews();
         numberButtons.clear();
+        txtQuestionCount.setText("Question " + (questionCount + 1) + " of " + totalQuestions);
 
         List<Integer> combo;
         int tempSum;
@@ -170,7 +176,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         for (int i = 0; i < comboCount; i++) {
             TextView blank = new TextView(this);
             blank.setText("__");
-            blank.setTextSize(24f);
+            blank.setTextSize(28f);
             blank.setPadding(16, 8, 16, 8);
             blank.setTextColor(Color.BLACK);
             blankSlots.add(blank);
@@ -178,7 +184,7 @@ public class ComposeNumbersActivity extends BaseActivity {
             if (i < comboCount - 1) {
                 TextView plus = new TextView(this);
                 plus.setText(" + ");
-                plus.setTextSize(24f);
+                plus.setTextSize(28f);
                 blankContainer.addView(plus);
             }
         }
@@ -196,20 +202,29 @@ public class ComposeNumbersActivity extends BaseActivity {
         for (int i = 0; i < numberPool.size(); i++) {
             Button btn = new Button(this);
             int value = numberPool.get(i);
+            btn.setBackgroundColor(Color.parseColor("#177572"));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1f // equal weight
+            );
+            // Set margins: (left, top, right, bottom)
+            params.setMargins(6, 6, 6, 6);
+            btn.setLayoutParams(params);
+            btn.setPadding(5,5,5,5);
             btn.setText(String.valueOf(value));
-            btn.setTextSize(18f);
+            btn.setTextSize(24f);
             btn.setOnClickListener(v -> {
                 for (TextView blank : blankSlots) {
                     if (blank.getText().toString().equals("__")) {
                         blank.setText(String.valueOf(value));
                         selectedValues.add(value);
                         btn.setEnabled(false);
-                        btn.setBackgroundColor(Color.parseColor("#BDBDBD"));
+                        btn.setBackgroundColor(Color.parseColor("#63c3a9"));
                         break;
                     }
                 }
             });
-
             numberButtons.add(btn);
 
             if (i < 4) {
@@ -228,7 +243,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
         for (Button btn : numberButtons) {
             btn.setEnabled(true);
-            btn.setBackgroundColor(Color.parseColor("#6200EE"));
+            btn.setBackgroundColor(Color.parseColor("#177572"));
         }
         txtFeedback.setText("");
     }
@@ -274,18 +289,23 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
         soundPool.play(soundVictory, 0.5f, 0.5f, 1, 0, 1);
 
-        String message = (correctAnswers >= 3)
-                ? "Well done! 🎉 You got " + correctAnswers + " out of " + totalQuestions
-                : "Keep practicing! 😊 You got " + correctAnswers + " out of " + totalQuestions;
+        String resultMessage;
+        if (correctAnswers >= 3) {
+            resultMessage = "Congratulations! 🎉\nYou got " + correctAnswers + " out of " + totalQuestions + " correct!" + "\n\nKeep it up!";
+        } else {
+            resultMessage = "Good try! 😊\nYou got " + correctAnswers + " out of " + totalQuestions + " correct.\nKeep practicing!";
+        }
 
+        new Handler().postDelayed(() -> {
         new AlertDialog.Builder(this)
                 .setTitle("Level Completed!")
-                .setMessage(message)
+                .setMessage(resultMessage)
                 .setCancelable(false)
                 .setPositiveButton("Play Again", (dialog, which) -> {
                     questionCount = 0;
                     correctAnswers = 0;
                     txtFeedback.setText("");
+                    txtScore.setText("Score: " + correctAnswers);
                     if (bgMusic != null && !isMuted) {
                         bgMusic.start();
                         bgMusic.setVolume(0.3f, 0.3f);
@@ -294,6 +314,7 @@ public class ComposeNumbersActivity extends BaseActivity {
                 })
                 .setNegativeButton("Back", (dialog, which) -> finish())
                 .show();
+    }, 2000); // 2 second delay
     }
 
     @Override

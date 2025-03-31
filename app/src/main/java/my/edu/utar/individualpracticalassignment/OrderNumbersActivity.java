@@ -70,7 +70,7 @@ public class OrderNumbersActivity extends BaseActivity {
                 }
 
                 drop.setText(draggedValue);
-                drop.setBackgroundColor(Color.parseColor("#90CAF9")); // light blue = filled
+                drop.setBackgroundColor(Color.parseColor("#177572")); //filled
 
                 // Find and gray out the original drag source
                 for (TextView dragView : dragViews) {
@@ -90,10 +90,12 @@ public class OrderNumbersActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_numbers);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
+        }
 
         txtLevel = findViewById(R.id.txtLevel);
         txtOrderType = findViewById(R.id.txtOrderType);
@@ -123,19 +125,17 @@ public class OrderNumbersActivity extends BaseActivity {
         bgMusic.start();
 
         btnMute = findViewById(R.id.btnMute);
-        btnMute.setText("🔇");
-        btnMute.setBackgroundColor(Color.parseColor("#EF9A9A"));
 
         btnMute.setOnClickListener(v -> {
             if (isMuted) {
                 bgMusic.start();
-                btnMute.setText("🔇");
-                btnMute.setBackgroundColor(Color.parseColor("#EF9A9A")); // Red
+                btnMute.setBackgroundColor(Color.parseColor("#734012"));
+                btnMute.setText("\uD83D\uDD0A");
                 isMuted = false;
             } else {
                 bgMusic.pause();
-                btnMute.setText("🔇");
-                btnMute.setBackgroundColor(Color.parseColor("#A5D6A7")); // Green
+                btnMute.setBackgroundColor(Color.parseColor("#7A7A79"));
+                btnMute.setText("\uD83D\uDD07");
                 isMuted = true;
             }
         });
@@ -224,9 +224,9 @@ public class OrderNumbersActivity extends BaseActivity {
             TextView drag = new TextView(this);
             drag.setTag("unused");
             drag.setText(String.valueOf(shuffled.get(i)));
-            drag.setTextSize(18f);
+            drag.setTextSize(20f);
             drag.setGravity(Gravity.CENTER);
-            drag.setBackgroundColor(Color.parseColor("#4CAF50"));
+            drag.setBackgroundColor(Color.parseColor("#177572"));
             drag.setTextColor(Color.WHITE);
             drag.setTypeface(chewy);
 
@@ -246,11 +246,11 @@ public class OrderNumbersActivity extends BaseActivity {
             // Create drop view
             TextView drop = new TextView(this);
             drop.setText("");
-            drop.setTextSize(18f);
+            drop.setTextSize(20f);
             drop.setTypeface(chewy);
             drop.setGravity(Gravity.CENTER);
-            drop.setBackgroundColor(Color.parseColor("#DDDDDD"));
-            drop.setTextColor(Color.BLACK);
+            drop.setBackgroundColor(Color.parseColor("#63c3a9"));
+            drop.setTextColor(Color.WHITE);
             drop.setLayoutParams(params);
             drop.setOnDragListener(dragListener);
 
@@ -263,12 +263,12 @@ public class OrderNumbersActivity extends BaseActivity {
         // Clear drop boxes and reset background
         for (TextView drop : dropViews) {
             drop.setText("");
-            drop.setBackgroundColor(Color.parseColor("#DDDDDD")); // Default color
+            drop.setBackgroundColor(Color.parseColor("#63c3a9")); // Default color
         }
 
         // Reset draggable items (re-enable and restore background if needed)
         for (TextView drag : dragViews) {
-            drag.setBackgroundColor(Color.parseColor("#4CAF50")); // Original green
+            drag.setBackgroundColor(Color.parseColor("#177572")); // Original green
             drag.setTag("unused"); // Mark as usable again
         }
 
@@ -343,6 +343,7 @@ public class OrderNumbersActivity extends BaseActivity {
                         questionCount = 0;
                         correctAnswers = 0;
                         txtFeedback.setText("");
+                        txtScore.setText("Score: " + correctAnswers);
                         generateRandomNumbers(currentLevel);
                         if (!isMuted && bgMusic != null) {
                             bgMusic.start(); // Resume BGM if not muted

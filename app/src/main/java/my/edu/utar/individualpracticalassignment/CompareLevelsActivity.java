@@ -1,6 +1,8 @@
 package my.edu.utar.individualpracticalassignment;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -13,6 +15,10 @@ public class CompareLevelsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare_levels);
         setupBackButton(R.id.btnBack);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
+        }
 
         tutorialBtn = findViewById(R.id.btnTutorial);
         level1Btn = findViewById(R.id.btnLevel1);

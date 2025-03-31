@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFF">
+    android:background="#b1faeb">
 
     <!-- 🔙 Back Button (Top-Left) -->
     <Button
@@ -37,17 +37,17 @@
     <Button
         style="@style/ChewyTextStyle"
         android:id="@+id/btnMute"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
         android:text="🔊"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="15dp"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#734012"
         android:padding="0dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@id/txtScore"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="10dp" />
 
     <!-- 📜 Scrollable Game Content -->
     <ScrollView
@@ -70,19 +70,25 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:padding="16dp"
-            android:layout_marginTop="100dp"
-            android:layout_gravity="center_vertical">
+            android:layout_marginTop="80dp"
+            android:layout_gravity="center">
 
             <!-- Level, Question Info -->
+
             <TextView
-                style="@style/ChewyTextStyle"
                 android:id="@+id/txtLevel"
+                style="@style/ChewyTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:shadowColor="#90FFFFFF"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
                 android:text="Level 1"
-                android:textSize="42sp"
-                android:textColor="#333333"
-                android:layout_marginBottom="8dp" />
+                android:textAlignment="center"
+                android:textColor="#1B2B48"
+                android:textSize="46sp" />
 
             <TextView
                 style="@style/ChewyTextStyle"
@@ -90,18 +96,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Question 1 of 5"
-                android:textSize="30sp"
-                android:layout_marginBottom="8dp" />
+                android:textColor="#85685B"
+                android:textSize="35sp"
+                android:layout_marginBottom="16dp"/>
 
             <TextView
                 style="@style/ChewyTextStyle"
                 android:id="@+id/txtOrderType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ascending Order"
+                android:text="Ascending Order (Small ➜ Big)"
+                android:layout_marginTop="15dp"
+                android:textColor="#000000"
                 android:textSize="28sp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
 
             <!-- Draggable Numbers -->
             <LinearLayout
@@ -137,8 +146,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="↩️ Reset"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="12dp" />
+                    android:textSize="18sp"
+                    android:layout_marginEnd="12dp"
+                    android:textColor="@color/textColor"
+                    android:backgroundTint="#fdc235" />
 
                 <Button
                     style="@style/ChewyTextStyle"
@@ -146,7 +157,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="✔️ Check Answer"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:layout_marginEnd="12dp"
+                    android:textColor="@color/textColor"
+                    android:backgroundTint="#fdc235"/>
             </LinearLayout>
 
             <!-- Feedback Text -->

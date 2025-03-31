@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(Color.parseColor("#693c28")); // Your color
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
 
         Button compareButton = findViewById(R.id.compareNumbers);

@@ -1,6 +1,8 @@
 package my.edu.utar.individualpracticalassignment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -22,6 +24,10 @@ public class TutorialActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#693c28"));
+        }
 
         webView = findViewById(R.id.webView);
         fullScreenContainer = findViewById(R.id.fullscreen_container); // You need to add this in XML
