@@ -44,6 +44,7 @@ public class ComposeNumbersActivity extends BaseActivity {
     int soundCorrect, soundWrong, soundVictory;
     boolean isMuted = false;
 
+    //Lists to manage the UI & game
     List<TextView> blankSlots = new ArrayList<>();
     List<Integer> numberPool = new ArrayList<>();
     List<Integer> selectedValues = new ArrayList<>();
@@ -56,10 +57,12 @@ public class ComposeNumbersActivity extends BaseActivity {
         setContentView(R.layout.activity_compose_numbers);
         setupBackButton(R.id.btnBack);
 
+        //Setup the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
 
+        //Initialize the UI references
         txtLevel = findViewById(R.id.txtLevel);
         txtTargetNumber = findViewById(R.id.txtTargetNumber);
         txtFeedback = findViewById(R.id.txtFeedback);
@@ -72,14 +75,17 @@ public class ComposeNumbersActivity extends BaseActivity {
         numRow2 = findViewById(R.id.numRow2);
         txtQuestionCount = findViewById(R.id.txtQuestionCount);
 
+        //Get the current level and set the game difficulty
         currentLevel = getIntent().getIntExtra("level", 1);
         setLevelRange(currentLevel);
 
+        //Load background music
         bgMusic = MediaPlayer.create(this, R.raw.bg_music);
         bgMusic.setVolume(0.3f, 0.3f);
         bgMusic.setLooping(true);
         bgMusic.start();
 
+        //Handle the mute and unmute button
         btnMute.setOnClickListener(v -> {
             if (isMuted) {
                 bgMusic.start();
@@ -93,6 +99,7 @@ public class ComposeNumbersActivity extends BaseActivity {
             isMuted = !isMuted;
         });
 
+        //Load the sound effects
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes attributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
@@ -112,6 +119,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         generateQuestion();
     }
 
+    //Set the number range
     private void setLevelRange(int level) {
         switch (level) {
             case 1:
@@ -127,6 +135,7 @@ public class ComposeNumbersActivity extends BaseActivity {
                 break;
         }
 
+        //Display the level title
         String levelTitle = "Level " + level;
         switch (level) {
             case 1: levelTitle += " – Basic"; break;
@@ -138,6 +147,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         txtLevel.setText(levelTitle);
     }
 
+    //Generate a new question
     private void generateQuestion() {
         blankSlots.clear();
         selectedValues.clear();
@@ -147,6 +157,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         numberButtons.clear();
         txtQuestionCount.setText("Question " + (questionCount + 1) + " of " + totalQuestions);
 
+        //Generate the valid combination that fits the level range
         List<Integer> combo;
         int tempSum;
         boolean valid = false;
@@ -173,6 +184,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         targetNumber = tempSum;
         txtTargetNumber.setText("Combine the Number: " + targetNumber);
 
+        //Show the blank placeholders
         for (int i = 0; i < comboCount; i++) {
             TextView blank = new TextView(this);
             blank.setText("__");
@@ -189,6 +201,7 @@ public class ComposeNumbersActivity extends BaseActivity {
             }
         }
 
+        //Create a number pool with 8 options ( 4 in a row)
         numberPool.clear();
         numberPool.addAll(combo);
         while (numberPool.size() < 8) {
@@ -199,6 +212,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
         Collections.shuffle(numberPool);
 
+        //Create a number buttons
         for (int i = 0; i < numberPool.size(); i++) {
             Button btn = new Button(this);
             int value = numberPool.get(i);
@@ -208,7 +222,7 @@ public class ComposeNumbersActivity extends BaseActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     1f // equal weight
             );
-            // Set margins: (left, top, right, bottom)
+            // Set margins: (left, top, right, bottom) - Add spacing to the button
             params.setMargins(6, 6, 6, 6);
             btn.setLayoutParams(params);
             btn.setPadding(5,5,5,5);
@@ -235,7 +249,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         }
     }
 
-
+    //Resets the user selections
     private void resetSelections() {
         selectedValues.clear();
         for (TextView blank : blankSlots) {
@@ -248,6 +262,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         txtFeedback.setText("");
     }
 
+    //Validate the answer
     private void checkAnswer() {
         if (selectedValues.size() != blankSlots.size()) {
             txtFeedback.setText("Please fill all blanks!");
@@ -283,6 +298,7 @@ public class ComposeNumbersActivity extends BaseActivity {
         }, 1500);
     }
 
+    //Display the result dialog
     private void showResultDialog() {
         if (bgMusic != null && bgMusic.isPlaying()) {
             bgMusic.pause();
@@ -317,6 +333,7 @@ public class ComposeNumbersActivity extends BaseActivity {
     }, 2000); // 2 second delay
     }
 
+    //Handles the BGM
     @Override
     protected void onPause() {
         super.onPause();

@@ -1,7 +1,6 @@
 package my.edu.utar.individualpracticalassignment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioAttributes;
@@ -14,12 +13,11 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 
 public class CompareNumbersActivity extends BaseActivity {
-
+    //UI Components
     TextView txtProblem, txtFeedback, txtLevel;
     Button btnOption1, btnOption2, btnOption3;
 
@@ -45,8 +43,11 @@ public class CompareNumbersActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get shuffle option from previous activity
         shuffleOptions = getIntent().getBooleanExtra("shuffle", false);
 
+        //Custom status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
@@ -57,29 +58,29 @@ public class CompareNumbersActivity extends BaseActivity {
         txtLevel = findViewById(R.id.txtLevel);
         txtProblem = findViewById(R.id.txtProblem);
         txtFeedback = findViewById(R.id.txtFeedback);
+        txtScore = findViewById(R.id.txtScore);
 
         btnOption1 = findViewById(R.id.btnOption1);
         btnOption2 = findViewById(R.id.btnOption2);
         btnOption3 = findViewById(R.id.btnOption3);
+        btnMute = findViewById(R.id.btnMute);
 
+        // Display selected level name
         String levelName = getIntent().getStringExtra("levelName");
         TextView txtLevelName = findViewById(R.id.txtLevelName);
         txtLevelName.setText(levelName);
 
-        // Get range from intent
+        // Get the number range from intent for current level
         min = getIntent().getIntExtra("min", 1);
         max = getIntent().getIntExtra("max", 10);
 
-        txtScore = findViewById(R.id.txtScore);
-//        btnBack = findViewById(R.id.btnBack);
-
+        //Setup and start background music
         bgMusic = MediaPlayer.create(this, R.raw.bg_music);
         bgMusic.setVolume(0.3f, 0.3f);
         bgMusic.setLooping(true);
         bgMusic.start();
 
-        btnMute = findViewById(R.id.btnMute);
-
+        //Handle the mute and unmute logic for the mute button
         btnMute.setOnClickListener(v -> {
             if (isMuted) {
                 // Music was muted → now resume
@@ -97,6 +98,7 @@ public class CompareNumbersActivity extends BaseActivity {
             }
         });
 
+        //Setup the sound effects
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
@@ -133,6 +135,7 @@ public class CompareNumbersActivity extends BaseActivity {
 
             txtScore.setText("Score: " + correctAnswers);
 
+            //Disable the button temporarily
             btnOption1.setEnabled(false);
             btnOption2.setEnabled(false);
             btnOption3.setEnabled(false);
@@ -149,6 +152,7 @@ public class CompareNumbersActivity extends BaseActivity {
             }, 1500);
         };
 
+        //Set listeners on the answer buttons
         btnOption1.setOnClickListener(listener);
         btnOption2.setOnClickListener(listener);
         btnOption3.setOnClickListener(listener);
@@ -156,6 +160,7 @@ public class CompareNumbersActivity extends BaseActivity {
         generateQuestion(); // Start first question
     }
 
+    //Generate new question and update the UI
     private void generateQuestion() {
         btnOption1.setEnabled(true);
         btnOption2.setEnabled(true);
@@ -167,6 +172,7 @@ public class CompareNumbersActivity extends BaseActivity {
         txtLevel.setText("Question " + (questionCount + 1) + " of " + totalQuestions);
         txtProblem.setText(num1 + " ___ " + num2);
 
+        //Determine the correct symbol
         if (num1 > num2) {
             correctAnswer = ">";
         } else if (num1 < num2) {
@@ -186,6 +192,7 @@ public class CompareNumbersActivity extends BaseActivity {
         btnOption3.setText(options[2]);
     }
 
+    //Shuffle Function
     private void shuffleArray(String[] array) {
         for (int i = array.length - 1; i > 0; i--) {
             int index = rand.nextInt(i + 1);
@@ -195,6 +202,7 @@ public class CompareNumbersActivity extends BaseActivity {
         }
     }
 
+    //Sgow result dialog at the end of the quiz
     private void showResultDialog() {
         //Stop the background music
         if (bgMusic != null && bgMusic.isPlaying()) {
@@ -240,6 +248,7 @@ public class CompareNumbersActivity extends BaseActivity {
         }, 2000);
     }
 
+    //Manage the background music lifecycle
     @Override
     protected void onPause() {
         super.onPause();

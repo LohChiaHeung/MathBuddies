@@ -29,18 +29,21 @@
             android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".CompareNumbersActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".CompareLevelsActivity"
             android:exported="false" />
         <activity
             android:name=".OrderNumbersActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".OrderLevelsActivity"
             android:exported="false" />
         <activity
             android:name=".ComposeNumbersActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ComposeLevelsActivity"

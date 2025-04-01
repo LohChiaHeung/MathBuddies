@@ -26,18 +26,22 @@ public class TutorialActivityComposeNumber extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial_composenumbers);
 
+        //Set the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
 
+        //Initialize the UI elements
         webView = findViewById(R.id.webView);
         fullScreenContainer = findViewById(R.id.fullscreen_container);
 
+        // Configure WebView settings for media playback
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
 
+        // Set WebView clients
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new TutorialActivityComposeNumber.FullscreenChromeClient());
 
@@ -49,6 +53,7 @@ public class TutorialActivityComposeNumber extends BaseActivity {
     private class FullscreenChromeClient extends WebChromeClient {
         @Override
         public void onShowCustomView(View view, CustomViewCallback callback) {
+            // Display video in fullscreen mode
             customView = view;
             customViewCallback = callback;
             fullScreenContainer.setVisibility(View.VISIBLE);
@@ -58,6 +63,7 @@ public class TutorialActivityComposeNumber extends BaseActivity {
 
         @Override
         public void onHideCustomView() {
+            // Exit fullscreen mode
             fullScreenContainer.setVisibility(View.GONE);
             fullScreenContainer.removeView(customView);
             customView = null;

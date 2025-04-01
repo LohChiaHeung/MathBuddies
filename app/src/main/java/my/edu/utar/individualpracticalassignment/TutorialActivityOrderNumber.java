@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 public class TutorialActivityOrderNumber extends BaseActivity {
 
+    // Components for handling WebView fullscreen mode
     private WebView webView;
     private FrameLayout fullScreenContainer;
     private View customView;
@@ -26,18 +27,22 @@ public class TutorialActivityOrderNumber extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial_ordernumbers);
 
+        // Set status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
 
+        // Initialize views
         webView = findViewById(R.id.webView);
-        fullScreenContainer = findViewById(R.id.fullscreen_container); // You need to add this in XML
+        fullScreenContainer = findViewById(R.id.fullscreen_container);
 
+        // Enable JavaScript and playback without user gesture
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
 
+        // Set WebView client to handle in-app navigation
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new TutorialActivityOrderNumber.FullscreenChromeClient());
 
@@ -49,6 +54,7 @@ public class TutorialActivityOrderNumber extends BaseActivity {
     private class FullscreenChromeClient extends WebChromeClient {
         @Override
         public void onShowCustomView(View view, CustomViewCallback callback) {
+            // Entering fullscreen mode
             customView = view;
             customViewCallback = callback;
             fullScreenContainer.setVisibility(View.VISIBLE);
@@ -58,9 +64,11 @@ public class TutorialActivityOrderNumber extends BaseActivity {
 
         @Override
         public void onHideCustomView() {
+            // Exiting fullscreen mode
             fullScreenContainer.setVisibility(View.GONE);
             fullScreenContainer.removeView(customView);
             customView = null;
+            // Show WebView again
             webView.setVisibility(View.VISIBLE);
             customViewCallback.onCustomViewHidden();
         }

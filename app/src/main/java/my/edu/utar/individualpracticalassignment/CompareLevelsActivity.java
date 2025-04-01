@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class CompareLevelsActivity extends BaseActivity {
 
+    //Button for tutorial and each difficulty level
     Button tutorialBtn, level1Btn, level2Btn, level3Btn, level4Btn, level5Btn;
 
     @Override
@@ -16,6 +17,7 @@ public class CompareLevelsActivity extends BaseActivity {
         setContentView(R.layout.activity_compare_levels);
         setupBackButton(R.id.btnBack);
 
+        //Set the status bar color for devices
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
@@ -32,15 +34,15 @@ public class CompareLevelsActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        //Level 1 [Basic]: 1 - 10
+        //Level 1 [Basic]: 1 - 10 [No shuffle]
         level1Btn.setOnClickListener(v -> startQuizWithRange(1, 10,"Level 1 – Basic",false));
-        //Level 2 [Easy]: 11 - 20
+        //Level 2 [Easy]: 11 - 20 [No shuffle]
         level2Btn.setOnClickListener(v -> startQuizWithRange(11, 20,"Level 2 – Easy", false));
-        //Level 3 [Normal]: 21 - 30
+        //Level 3 [Normal]: 21 - 30 [No shuffle]
         level3Btn.setOnClickListener(v -> startQuizWithRange(21, 30,"Level 3 – Normal", false));
-        //Level 4 [Hard]: 31 - 50
+        //Level 4 [Hard]: 31 - 50 [Shuffle Enable]
         level4Btn.setOnClickListener(v -> startQuizWithRange(31, 50,"Level 4 – Hard", true));
-        //Level 5 [Very Hard]: 51 - 99
+        //Level 5 [Very Hard]: 51 - 99 [Shuffle Enable]
         level5Btn.setOnClickListener(v -> startQuizWithRange(51, 99,"Level 5 – Very Hard", true));
     }
 
@@ -50,6 +52,6 @@ public class CompareLevelsActivity extends BaseActivity {
         intent.putExtra("max", max);
         intent.putExtra("levelName", levelName);
         intent.putExtra("shuffle", shuffle);
-        startActivity(intent);
+        startActivity(intent); //start the game activity
     }
 }

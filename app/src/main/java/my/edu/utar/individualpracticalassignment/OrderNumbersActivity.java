@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Random;
 
 public class OrderNumbersActivity extends BaseActivity {
-    TextView txtNum1, txtNum2, txtNum3, txtNum4;
     TextView drop1, drop2, drop3, drop4;
     Button btnCheck;
     List<Integer> originalNumbers = new ArrayList<>();
@@ -56,6 +55,7 @@ public class OrderNumbersActivity extends BaseActivity {
     TextView txtLevel, txtOrderType, txtQuestionCount;
 
 
+    //Handle the 'drag and drop' behaviour
     View.OnDragListener dragListener = (v, event) -> {
         switch (event.getAction()) {
             case DragEvent.ACTION_DROP:
@@ -93,10 +93,12 @@ public class OrderNumbersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_numbers);
 
+        //Set the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#693c28"));
         }
 
+        //Initialize UI Components
         txtLevel = findViewById(R.id.txtLevel);
         txtOrderType = findViewById(R.id.txtOrderType);
         txtQuestionCount = findViewById(R.id.txtQuestionCount);
@@ -118,12 +120,14 @@ public class OrderNumbersActivity extends BaseActivity {
         txtFeedback = findViewById(R.id.txtFeedback);
 
         generateRandomNumbers(currentLevel);
+
         // Background Music
         bgMusic = MediaPlayer.create(this, R.raw.bg_music);
         bgMusic.setLooping(true);
         bgMusic.setVolume(0.3f, 0.3f);
         bgMusic.start();
 
+        //Mute and Unmute function
         btnMute = findViewById(R.id.btnMute);
 
         btnMute.setOnClickListener(v -> {
@@ -173,6 +177,8 @@ public class OrderNumbersActivity extends BaseActivity {
 
 
     }
+
+    //Generate random numbers and populates draggable and drop zones
     private void generateRandomNumbers(int level) {
         originalNumbers.clear();
         dragContainer.removeAllViews();
@@ -184,12 +190,13 @@ public class OrderNumbersActivity extends BaseActivity {
         txtQuestionCount.setText("Question " + (questionCount + 1) + " of " + totalQuestions);
         Typeface chewy = ResourcesCompat.getFont(this, R.font.chewy_font);
 
-        // Randomly choose Ascending or Descending
+        // Randomly choose Ascending or Descending Order
         Random rand = new Random();
         isAscending = rand.nextBoolean(); // true = ascending, false = descending
         txtOrderType.setText(isAscending ? "Ascending Order \uD83D\uDCC8" : "Descending Order \uD83D\uDCC9");
 
         // Determine how many boxes to use
+        // Level 1 : 3 boxes, Level 2: 4 boxes Levels 3-5: 5 boxes
         int boxCount = 4;
         switch (level) {
             case 1: boxCount = 3; break;
@@ -219,6 +226,7 @@ public class OrderNumbersActivity extends BaseActivity {
         List<Integer> shuffled = new ArrayList<>(originalNumbers);
         Collections.shuffle(shuffled);
 
+        //Create drag and drop vies
         for (int i = 0; i < boxCount; i++) {
             // Create drag view
             TextView drag = new TextView(this);
@@ -230,6 +238,7 @@ public class OrderNumbersActivity extends BaseActivity {
             drag.setTextColor(Color.WHITE);
             drag.setTypeface(chewy);
 
+            //Use Linearlayout to make margin (spacing) between each of the buttons
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, 130, 1f);
             params.setMargins(8, 8, 8, 8);
             drag.setLayoutParams(params);
@@ -259,6 +268,7 @@ public class OrderNumbersActivity extends BaseActivity {
         }
     }
 
+    //Reset Button
     private void resetCurrentDragDrop() {
         // Clear drop boxes and reset background
         for (TextView drop : dropViews) {
@@ -276,6 +286,7 @@ public class OrderNumbersActivity extends BaseActivity {
     }
 
 
+    //Check Answer
     private void checkAnswer() {
         List<Integer> dropped = new ArrayList<>();
         for (TextView drop : dropViews) {
@@ -302,10 +313,10 @@ public class OrderNumbersActivity extends BaseActivity {
         if (correct) {
             correctAnswers++;
             txtFeedback.setText("✅ Correct!");
-            txtFeedback.setTextColor(Color.parseColor("#2E7D32")); // Dark green
+            txtFeedback.setTextColor(Color.parseColor("#2E7D32"));
         } else {
             txtFeedback.setText("❌ Incorrect!");
-            txtFeedback.setTextColor(Color.parseColor("#D32F2F")); // Red
+            txtFeedback.setTextColor(Color.parseColor("#D32F2F"));
         }
 
         questionCount++;
@@ -321,6 +332,7 @@ public class OrderNumbersActivity extends BaseActivity {
     }
 
 
+    //Display final results dialog
     private void showResultDialog() {
         if (bgMusic != null && bgMusic.isPlaying()) {
             bgMusic.pause();
@@ -354,6 +366,7 @@ public class OrderNumbersActivity extends BaseActivity {
         }, 2000); // 2 second delay
     }
 
+    //Manage the background music
     @Override
     protected void onPause() {
         super.onPause();
