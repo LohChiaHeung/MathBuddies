@@ -244,6 +244,10 @@ public class OrderNumbersActivity extends BaseActivity {
             drag.setLayoutParams(params);
 
             drag.setOnLongClickListener(v -> {
+                if ("used".equals(v.getTag())) {
+                    Toast.makeText(this, "This number is already used!", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 ClipData data = ClipData.newPlainText("value", ((TextView) v).getText());
                 v.startDragAndDrop(data, new View.DragShadowBuilder(v), v, 0);
                 return true;
