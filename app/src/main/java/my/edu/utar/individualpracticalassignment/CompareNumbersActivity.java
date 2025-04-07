@@ -236,7 +236,7 @@ public class CompareNumbersActivity extends BaseActivity {
                     }
                     generateQuestion();
                 })
-                .setNegativeButton("Back to Home", (dialog, which) -> {
+                .setNegativeButton("Back", (dialog, which) -> {
                     Intent intent = new Intent(this, CompareLevelsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     //Intent.FLAG_ACTIVITY_CLEAR_TOP - Clears the other activities above it.
